@@ -26,7 +26,7 @@ invisible(lapply(packages, library, character.only = TRUE))
 ## Determining a Reasonable MDEs ##
 #Prop1 are those proportions adjusted for what's observed in the CA paper
 prop1 <- c(0.200, 0.330)
-prop2 <- c(0.174, 0.304)
+prop2 <- c(0.173, 0.303)
 hs <-data.frame(prop1, prop2)
 hs <- hs %>%
   mutate(MDEs = ES.h(p1=prop1, p2=prop2))
@@ -54,12 +54,12 @@ ggplot(plot_df, aes(x=samplesize,
 #Now assess the sample size needed with a logistic regression which is a much better fit
 #Assume that other covariates explain a third of the variance
 #For a 20% recidivism rate
-pwrss.z.logreg(p0 = 0.200, p1 = 0.174, r2.other.x = 0.33,
+pwrss.z.logreg(p0 = 0.200, p1 = 0.173, r2.other.x = 0.33,
                power = 0.80, alpha = 0.05, 
                dist = "normal")
 
 #For a 54% recidivism rate
-pwrss.z.logreg(p0 = 0.330, p1 = 0.304, r2.other.x = 0.33,
+pwrss.z.logreg(p0 = 0.330, p1 = 0.303, r2.other.x = 0.33,
                power = 0.80, alpha = 0.05, 
                dist = "normal")
 
@@ -83,7 +83,7 @@ my_power_function <- function(baseline_prop, sample_size) {
     #Create the pre treatment group
     treatment_pre <- data.frame(condition=rep(1, sample_size), time=rep(0, sample_size), recid=rbinom(n=sample_size, size=1, prob=baseline_prop))
     #Create the post treatment group
-    treatment_post <- data.frame(condition=rep(1, sample_size), time=rep(1, sample_size), recid=rbinom(n=sample_size, size=1, prob=baseline_prop-0.026))
+    treatment_post <- data.frame(condition=rep(1, sample_size), time=rep(1, sample_size), recid=rbinom(n=sample_size, size=1, prob=baseline_prop-0.027))
     #Create the pre comparison group
     comparison_pre <- data.frame(condition=rep(0, sample_size), time=rep(0, sample_size), recid=rbinom(n=sample_size, size=1, prob=baseline_prop))
     #Create the post comparison group
